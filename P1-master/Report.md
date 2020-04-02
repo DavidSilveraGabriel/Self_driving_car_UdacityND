@@ -31,10 +31,7 @@ My pipeline is a mix of all the code we saw in the course and the functions that
 ### 2. Identify potential shortcomings with your current pipeline
 
 
-some deficiencies can be seen in the following video:
-![Watch the video](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P1-master/test_videos_output/challenge.mp4)
-<a href="{https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P1-master/test_videos_output/challenge.mp4}" title="curva"></a>
-
+some deficiencies can be seen in the video here ```P1-master/test_videos_output/challenge.mp4```
 as you can see the algorithm cannot adapt to the curves
 
 

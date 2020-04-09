@@ -89,12 +89,13 @@ def cal_undistort(img, objpoints, imgpoints):
 # Apply a distortion correction to raw images. 
 
 here we apply the distortion correction in the images, here the results in two images
-the first is the dash  
-![distortion_correctionImage1](./output_images/undistorted image.png)
+the first is the dash:
 
-the second a road image
+![tmages](./output_images/undistorted image.png)
 
-![distortioncorrectionImage2](./output_images/undistorted car.png)
+the second a road image:
+
+![stmages](./output_images/undistorted car.png)
 
 # Create a thresholded binary image. 
 
@@ -110,7 +111,8 @@ Apply each of the thresholding functions and combining results
 
 here we can divide it into 9 steps
 1 define points borders 
-``` top_right = (723, 453)
+``` 
+    top_right = (723, 453)
     top_left = (556, 456)
     botom_right = (1285, 685)
     botom_left = (0, 680)

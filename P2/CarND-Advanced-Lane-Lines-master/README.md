@@ -91,11 +91,11 @@ def cal_undistort(img, objpoints, imgpoints):
 here we apply the distortion correction in the images, here the results in two images
 the first is the dash:
 
-![tmages](./output_images/undistorted image.png)
+![tmages](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P2/CarND-Advanced-Lane-Lines-master/output_images/undistorted%20image.png?raw=true)
 
 the second a road image:
 
-![stmages](./output_images/undistorted car.png)
+![stmages](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P2/CarND-Advanced-Lane-Lines-master/output_images/undistorted%20car.png)
 
 # Create a thresholded binary image. 
 

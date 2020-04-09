@@ -1,8 +1,6 @@
 ## Advanced Lane Finding
 ### In this project, the goal is to write a software pipeline to identify the lane boundaries in a video
 
-![Lanes Image](./output_images/giphy.gif)
-
 
 # Navigation 
 [camera_cal/](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/tree/master/P2/CarND-Advanced-Lane-Lines-master/camera_cal)  Directory with calibration images
@@ -173,11 +171,17 @@ we could divide it into 3 parts
 - perspective_transform -> we saw this function in the step ("birds-eye view")
 - combined -> and this is the function that creates thresholded binary image
 ### The second part consist in determine the curvature and vehicle position with respect to center.
+For more detail go to: [Main.ipynb](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P2/CarND-Advanced-Lane-Lines-master/Main%20.ipynb)
 
+### The last part consist in draw in the image the detected lines
 
+![output](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P2/CarND-Advanced-Lane-Lines-master/output_images/ouput%20pipeline.png)
 
+# Output visual display in a video
 
+And in the end here the result :D !!! 
 
+![Lanes Image](./output_images/giphy.gif)
 
 
 

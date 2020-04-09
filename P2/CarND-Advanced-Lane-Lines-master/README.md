@@ -43,7 +43,7 @@ The `harder_challenge.mp4` video is another optional challenge and is brutal!
 Calibrate the camera to correct for image distortions. For this we use a set of chessboard images, knowing the distance and angles between common features like corners, we can calculate the tranformation functions and apply them to the video frames.
 
 - Define corners and the arrays to store object points and image points from all the images.
-```
+```python
 nx = 9 # number of corners in x direction
 ny = 6 # number of corners in Y direction
 ##################
@@ -51,15 +51,17 @@ objpoints = [] # 3d points in real world space
 imgpoints = [] # 2d points in image plane.
 ```
 - Prepare grid and points to display
-```
+```python
 objp = np.zeros((np.prod(nx*ny),3),dtype=np.float32)
 objp[:,:2] = np.mgrid[0:ny, 0:nx].T.reshape(-1,2)
 ```
 - Make a list of calibration images
-```images = glob.glob('camera_cal/calibration*.jpg')```
+```python
+images = glob.glob('camera_cal/calibration*.jpg')
+```
 
 - Step through the list and search for chessboard corners
-```
+```python
    for fname in images:
       img = cv2.imread(fname)
       # Converting an image, imported by cv2 or the glob API, to grayscale
@@ -75,7 +77,7 @@ objp[:,:2] = np.mgrid[0:ny, 0:nx].T.reshape(-1,2)
 ```
 
 - send that objpoints and imgpoints to the cv2 function 
-```
+```python
 def cal_undistort(img, objpoints, imgpoints):
     # calibrate camera 
     ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, img.shape[0:2], None, None)
@@ -111,38 +113,38 @@ Apply each of the thresholding functions and combining results
 
 here we can divide it into 9 steps
 1 define points borders 
-``` 
+```python
     top_right = (723, 453)
     top_left = (556, 456)
     botom_right = (1285, 685)
     botom_left = (0, 680)
 ``` 
 2 extract image dimensions
-```
+```python
 img_size = (img.shape[1], img.shape[0])
 ``` 
 3 set source points
-```
+```python
 src = np.float32([[top_right],[top_left],[botom_right],[botom_left]])
 ``` 
 4 define width and height
-```
+```python
 w, h = img.shape[1], img.shape[0]
 ``` 
 5 set destination points
-```
+```python
 dst = np.float32([[w,0],[0,0],[w,h],[0,h]])
 ``` 
 6 get a perspective transform matrix
-```
+```python
 M = cv2.getPerspectiveTransform(src, dst)
 ``` 
 7 get inverse matrix
-```
+```python
 unwrap_m = cv2.getPerspectiveTransform(dst, src)
 ``` 
 8 warp original image
-```
+```python
 warped = cv2.warpPerspective(image, M, img_size, flags=cv2.INTER_LINEAR)
 ``` 
 9 Return the resulting image 
@@ -164,6 +166,13 @@ for more detail look in : [Main.ipynb](https://github.com/DavidSilveraGabriel/Se
 
 # pipeline 
 
+Finnaly we got to the pipeline !!! 
+we could divide it into 3 parts
+### The first part consists of 3 functions and pieces of recycled code from the step of detecting lines
+- cal_undistort -> the function corresponds to the calibration part of the camera
+- perspective_transform -> we saw this function in the step ("birds-eye view")
+- combined -> and this is the function that creates thresholded binary image
+### The second part consist in determine the curvature and vehicle position with respect to center.
 
 
 

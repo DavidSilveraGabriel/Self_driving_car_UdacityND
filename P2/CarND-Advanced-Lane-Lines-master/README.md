@@ -59,7 +59,8 @@ objp[:,:2] = np.mgrid[0:ny, 0:nx].T.reshape(-1,2)
 ```images = glob.glob('camera_cal/calibration*.jpg')```
 
 - Step through the list and search for chessboard corners
-```for fname in images:
+```
+   for fname in images:
       img = cv2.imread(fname)
       # Converting an image, imported by cv2 or the glob API, to grayscale
       gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
@@ -84,4 +85,89 @@ def cal_undistort(img, objpoints, imgpoints):
         
     return undist
 ```
+
+# Apply a distortion correction to raw images. 
+
+here we apply the distortion correction in the images, here the results in two images
+the first is the dash and the second a road image
+
+![distortion correction Image 1](./output_images/undistorted image.png)
+
+![distortion correction Image 2](./output_images/undistorted car.png)
+
+# Create a thresholded binary image. 
+
+here we use the combination of 3 algorithms seen during the classes ```-->abs_sobel_thresh, mag_thresh and dir_threshold``` 
+
+![thresholded binary images](./output_images/combined.png)
+
+Apply each of the thresholding functions and combining results
+
+![thresholded binary](./output_images/combined func.png)
+
+# Apply a perspective transform ("birds-eye view").
+
+here we can divide it into 9 steps
+1 define points borders 
+``` top_right = (723, 453)
+    top_left = (556, 456)
+    botom_right = (1285, 685)
+    botom_left = (0, 680)
+``` 
+2 extract image dimensions
+```
+img_size = (img.shape[1], img.shape[0])
+``` 
+3 set source points
+```
+src = np.float32([[top_right],[top_left],[botom_right],[botom_left]])
+``` 
+4 define width and height
+```
+w, h = img.shape[1], img.shape[0]
+``` 
+5 set destination points
+```
+dst = np.float32([[w,0],[0,0],[w,h],[0,h]])
+``` 
+6 get a perspective transform matrix
+```
+M = cv2.getPerspectiveTransform(src, dst)
+``` 
+7 get inverse matrix
+```
+unwrap_m = cv2.getPerspectiveTransform(dst, src)
+``` 
+8 warp original image
+```
+warped = cv2.warpPerspective(image, M, img_size, flags=cv2.INTER_LINEAR)
+``` 
+9 Return the resulting image 
+
+![image](./output_images/perspective.png)
+
+
+# Detect lane pixels 
+
+Now by using the transformed image, identify the lane line pixels. To accomplish this we'll use a method called "Peaks in a Histogram" where we analyse the histogram of section of the image, window, and identify the peaks which represent the location of the lane lines.
+
+![hist](./output_images/histogram.png)
+
+basicamente para esta parte hice 2 funciones 
+```fit_ poly ()```: Fit a polynomial to all the relevant pixels you've found in your sliding windows
+```search_around_poly()```: Set the area to search for activated pixels
+![line](./output_images/lines.png)
+for more detail look in : [Main.ipynb](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P2/CarND-Advanced-Lane-Lines-master/Main%20.ipynb)
+
+# pipeline 
+
+
+
+
+
+
+
+
+
+
 

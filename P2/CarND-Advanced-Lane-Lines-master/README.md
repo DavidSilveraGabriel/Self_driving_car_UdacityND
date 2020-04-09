@@ -1,6 +1,6 @@
-## Advanced Lane Finding
-### In this project, the goal is to write a software pipeline to identify the lane boundaries in a video
+# Advanced Lane Finding
 
+### In this project, the goal is to write a software pipeline to identify the lane boundaries in a video
 
 # Navigation 
 [camera_cal/](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/tree/master/P2/CarND-Advanced-Lane-Lines-master/camera_cal)  Directory with calibration images

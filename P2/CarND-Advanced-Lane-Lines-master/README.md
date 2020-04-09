@@ -184,6 +184,8 @@ And in the end here the result :D !!!
 ![Lanes Image](./output_images/giphy.gif)
 
 
+# Discution 
 
+If you look in the challenge video you will see that it does not have as good a performance as in the test video, this is due to the changes in elevation, lighting or any steep bends. cause distortions that a simple algorithm cannot overcome
 
 

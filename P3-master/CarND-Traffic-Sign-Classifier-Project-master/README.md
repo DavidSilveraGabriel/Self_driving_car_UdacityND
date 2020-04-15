@@ -52,6 +52,7 @@ exploring a little we can find the following data:
 
 the next thing to do is to design and test a model architecture, for this I used the keras library
 Keras is an Open Source Neural Network library written in Python. Able to run on TensorFlow
+
 ### Pre-process the Data Set
 before starting to design and build our model we have to start with the pre-processing of data, for this use a simple function 
 that normalizes the data between 0 and 1
@@ -63,10 +64,11 @@ then convert class vectors to binary class matrices using ``` keras.utils.to_cat
 
 ## The model arquitecture : 
 ![model](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/model%20NW.png) 
+
 for more detail please go to the [notebook](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/Traffic_Sign_Classifier.ipynb)
 
 ## Train, test and validate the model
-for do that we use the fit() from keras 
+for the train we use the fit() from keras 
 ```python
       model.fit(X_train, y_train,
                 batch_size=50,
@@ -74,19 +76,24 @@ for do that we use the fit() from keras
                 verbose=1,
                 validation_data=(X_test, y_test))
 ```
+
 ![train](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/train.png) 
 
 ### Validate the model
 to validate the model is as easy as using evaluate () and passing the necessary parameters
 The result : 
-
+```
     4410/4410 [==============================] - 5s 1ms/sample - loss: 0.1302 - accuracy: 0.9689
 
     Valid accuracy: 0.96893424
+```
+
 as the result is satisfactory we will save the model using 
+
 ```python 
     model.save('cp_NW.h5')
 ```
+
 # 3. Use the model to make predictions on new images
 To be sure that the model works in other images than those provided to train, test and validate,
 we will use images taken from the web

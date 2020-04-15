@@ -151,7 +151,7 @@ def top_k(img,k):
 ### the first image 
 the first image is ``` Right-of-way at the next intersection sign ``` 
 
-[predict proba](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/predict%20proba.png)
+![predict proba](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/predict%20proba.png)
 
 and the ouput is :
 ```
@@ -166,7 +166,8 @@ so the label is [11] if we look in the table we can see that id (11) corresponds
 
 ### the second image 
 the second image to analize is  ``` No entry ```
-[no entry](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/predict%20proba%2017.png)
+
+![no entry](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/predict%20proba%2017.png)
 
 and the ouput is :
 
@@ -180,7 +181,8 @@ As we can see the highest probability is given in [17], so if we search the tabl
 
 ### the third image
 the third image that we will analize is ``` Double curve ```
-[double](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/erro.png) 
+
+![double](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/erro.png) 
 
 and the ouput is : 
 
@@ -197,17 +199,4 @@ Finishing this writeup I can say that it was a good project that I quite liked t
 Regarding the failure in the image ``` Double curve ```  I imagine that it is because it is very similar to the image that the model predicted, which is that of id = 28 that corresponds to ``` Children crossing ``` both very similar
 To improve it, I think that I would have to retrain the model in a new data set, increasing the number of images that are scarce in the 3 datasets, since if they are set to ``` visualize the distribution of classes in the training, validation and test set ``` you can see a clear difference in the number of images per label
 giving some labels more than 1000 images and others with less than 500 images
-
-
-
-
-
-
-
-
-
-
-
-
-
 

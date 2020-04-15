@@ -118,10 +118,10 @@ here the class id with his respective SignName
 	26	Traffic signals           // 36	Go straight or right
 	27	Pedestrians               // 37	Go straight or left
 	28	Children crossing         // 38	Keep right
-  29	Bicycles crossing         // 39	Keep left
+        29	Bicycles crossing         // 39	Keep left
 	30	Beware of ice/snow        // 40	Roundabout mandatory
-                                // 41	End of no passing
-                                // 42	End of no passing by vehicles over 3.5 metric
+                                          // 41	End of no passing
+                                          // 42	End of no passing by vehicles over 3.5 metric
                                 
 ```
  ## now the moment of truth, model predictions

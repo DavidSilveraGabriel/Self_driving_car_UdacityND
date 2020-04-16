@@ -79,7 +79,7 @@ for the train we use the fit() from keras
 ![train](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/train.png) 
 
 ### Validate the model
-to validate the model is as easy as using evaluate () and passing the necessary parameters
+to validate the model is as easy as using evaluate() and passing the necessary parameters
 The result : 
 ```
     4410/4410 [==============================] - 5s 1ms/sample - loss: 0.1302 - accuracy: 0.9689

@@ -1,4 +1,4 @@
-## Project: Build a Traffic Sign Recognition Program
+# Project: Build a Traffic Sign Recognition Program
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 Overview of udacity
@@ -164,11 +164,11 @@ The correct is 14 ---> Stop but
 unfortunately and predictably the model could not correctly predict the traffic sign (37) ---> Go straight or left
 I suppose this is due to the fact that the training was carried out with images where what you want to predict occupies the entire image, and when we pass a new image that does not meet that requirement, the model will end up predicting poorly.
 
- ## now the moment of truth, model predictions
+ ## Now the moment of truth, model predictions
 
 ![model pred](img/predict.png)
 
-we could say that the precision is 87.5% in the test images from the web very good :D 
+We could say that the precision is 87.5% in the test images from the web very good :D 
 from eight images only one It was poorly predicted, now we are going to evaluate the model with code
 
 ```python
@@ -186,7 +186,7 @@ effectively gives us 87.5%
 
 # 4. Analyze the softmax probabilities of the new images
 
-in this part we need analyze the softmax probabilities of the images, specifically we have to get the highest 5 probabilities
+In this part we need analyze the softmax probabilities of the images, specifically we have to get the highest 5 probabilities
 and the highest probability of 5 will be the prediction of our model, now we will see only 3 but you can see the others in the notebook
 ```python
 #define the top k function to preprocess, print the image and calculate the highest k probabilities
@@ -201,28 +201,28 @@ def top_k(img,k):
 ```
 
 
-### the first image 
-the first image is ``` Right-of-way at the next intersection sign ``` 
+### The first image 
+The first image is ``` Right-of-way at the next intersection sign ``` 
 
 ![predict proba](img/predictproba.png)
 
-and the ouput is :
+And the ouput is :
 ```
     TopKV2(values=<tf.Tensor: shape=(1, 5), dtype=float32, numpy=
     array([[1.0000000e+00, 2.6340477e-10, 2.2860222e-14, 1.2322559e-16,
             4.5063192e-17]], dtype=float32)>,
             indices=<tf.Tensor: shape=(1, 5), dtype=int32, numpy=array([[11, 30, 27, 28, 24]])>)
 ```
-the first number in the array represents the highest probability (1.0000000e+00) equivalent to saying 100%
+The first number in the array represents the highest probability (1.0000000e+00) equivalent to saying 100%
 and what means this array([[11, 30, 27, 28, 24]]) ? --> this is the array of labels corresponding to their probabilities from the previous array, which means that the first element of this array corresponds to the first element of the previous array,
 so the label is [11] if we look in the table we can see that id (11) corresponds to ``` Right-of-way at the next intersection ``` 
 
-### the second image 
-the second image to analize is  ``` No entry ```
+### The second image 
+The second image to analize is  ``` No entry ```
 
 ![no entry](img/predictproba17.png)
 
-and the ouput is :
+And the ouput is :
 
 ```
     TopKV2(values=<tf.Tensor: shape=(1, 5), dtype=float32, numpy=
@@ -232,12 +232,12 @@ and the ouput is :
 ```
 As we can see the highest probability is given in [17], so if we search the table effectively, id (17) corresponds to no entry
 
-### the third image
-the third image that we will analize is ``` Double curve ```
+### The third image
+The third image that we will analize is ``` Double curve ```
 
 ![double](img/erro.png) 
 
-and the ouput is : 
+And the ouput is : 
 
 ```
     TopKV2(values=<tf.Tensor: shape=(1, 5), dtype=float32, numpy=
@@ -245,9 +245,9 @@ and the ouput is :
             5.1042634e-06]], dtype=float32)>,
             indices=<tf.Tensor: shape=(1, 5), dtype=int32, numpy=array([[28, 20, 23, 29,  3]])>)
 ```
-as we can see unfortunately in this image the model fails :( 
+As we can see unfortunately in this image the model fails :( 
 
-# final considerations
+# Final considerations
 Finishing this writeup I can say that it was a good project that I quite liked to do, the precision was quite high in training: 0.9885 = 98.85% and the validation with the image tests 0.9618 = 96.18% also the validation with the valid images was a little higher 0.9689 = 96.89% so I'm pretty satisfied
 Regarding the failure in the image ``` Double curve ```  I imagine that it is because it is very similar to the image that the model predicted, which is that of id = 28 that corresponds to ``` Children crossing ``` both very similar
 To improve it, I think that I would have to retrain the model in a new data set, increasing the number of images that are scarce in the 3 datasets, since if they are set to ``` visualize the distribution of classes in the training, validation and test set ``` you can see a clear difference in the number of images per label

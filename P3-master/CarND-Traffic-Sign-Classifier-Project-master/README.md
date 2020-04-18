@@ -1,4 +1,5 @@
-# Project: Build a Traffic Sign Recognition Program
+## Project: Build a Traffic Sign Recognition Program
+[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 Overview of udacity
 ---
@@ -26,6 +27,7 @@ git clone https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/tree
 cd CarND-Traffic-Sign-Classifier-Project
 jupyter notebook Traffic_Sign_Classifier.ipynb
 ```
+
 # 0. Load the data and import the libraries  
 
 here import all the libraries that I thought necessary, load the data for training test and validation
@@ -39,13 +41,13 @@ exploring a little we can find the following data:
 - Image data shape = (32, 32, 3)
 - Number of classes = 43
 
-### We can also see some random images
+### We can also see some random images to get an idea of how are the images with which we will work
 
-![random](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/random.png)
+![random](img/random.png)
 
 ### And also visualize the distribution of the labels in the training data sets test and validation
 
-![distribution](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/distribution.png)
+![distribution](img/distribution.png)
 
 # 2. Design train and Test a Model Architecture
 
@@ -53,18 +55,29 @@ the next thing to do is to design and test a model architecture, for this I used
 Keras is an Open Source Neural Network library written in Python. Able to run on TensorFlow
 
 ### Pre-process the Data Set
-before starting to design and build our model we have to start with the pre-processing of data, for this use a simple function 
-that normalizes the data between 0 and 1
+before starting to design and build our model we have to start with the pre-processing of data, for this i use a simple function that normalizes the data between 0 and 1, why, it is simply because I used other preprocessings but they gave me errors when feeding the model and when I only use this it worked perfectly and without overfiting
 ```python
   def norm(x):
     return x/255
 ```
-then convert class vectors to binary class matrices using ``` keras.utils.to_categorical ```
+then convert class vectors to binary class matrices using ``` keras.utils.to_categorical ``` since is required by keras
 
 ## The model arquitecture : 
-![model](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/model%20NW.png) 
 
-for more detail please go to the [notebook](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/Traffic_Sign_Classifier.ipynb)
+The model architecture is as follows:
+  
+  - I add the first layer of the model with kernel size = (3,3), activation relu and a filter of 32
+  - The second layer have a filter of 64, the same activation and kernel size than the previous layer
+  - Next I add a max pooling for take regions of the image with the size 2x2
+  - Now a Dropout of 0.25
+  - Then I use flatten to flatten the tensors
+  - And I add a deeply connected neural network layer with a imput of 128 and the relu activation
+  - Now a Dropout but more higher (0.5)
+  - I add the last layer (dense or full connected) with input of number of classes(43) and activation softmax
+  - Finally compile using categorical_crossentropy as a loss function, as optimizer to adadelta since it is a more robust      Adagrad extension and it has given me good results,
+
+![model](img/modelNW.png) 
+
 
 ## Train, test and validate the model
 for the train we use the fit() from keras 
@@ -73,18 +86,18 @@ for the train we use the fit() from keras
                 batch_size=50,
                 epochs=10,
                 verbose=1,
-                validation_data=(X_test, y_test))
+                validation_data=(X_valid, y_valid))
 ```
 
-![train](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/train.png) 
+![train](img/train.png) 
 
 ### Validate the model
-to validate the model is as easy as using evaluate() and passing the necessary parameters
+to validate the model is as easy as using evaluate () and passing the necessary parameters
 The result : 
 ```
     4410/4410 [==============================] - 5s 1ms/sample - loss: 0.1302 - accuracy: 0.9689
 
-    Valid accuracy: 0.96893424
+    Test accuracy: 0.96893424
 ```
 
 as the result is satisfactory we will save the model using 
@@ -94,20 +107,44 @@ as the result is satisfactory we will save the model using
 ```
 
 # 3. Use the model to make predictions on new images
-To be sure that the model works in other images than those provided to train, test and validate,
-we will use images taken from the web
-here the class id with his respective SignName
+
+### To be sure that the model works in other images than those provided to train, test and validate,
+### we will use images taken from the web
+
+the first prediction it will be one where the traffic poster does not occupy the entire image to see if it predicts correctly since the model was trained with images where the traffic signs do occupy all or most of the image
+
+![model pred](img/bigstop.jpg)
+
+preprocess : applying the same thing that applies to the images of training, test and validation
+
+```python
+    img = mpimg.imread('./img/bigstop.jpg')
+    img = np.array(img)
+    img = cv2.resize(img,(32,32))
+    img = norm(img)
+    plt.imshow(img)
+    img = img.reshape(1, 32, 32, 3)
+    # make the predict 
+    print("predict : " + str(new_model.predict_classes(img)))
+    
+>>> predict : [37]
 ```
-	0	Speed limit (20km/h)        // 10	No passing for vehicles over 3.5 metric tons
-	1	Speed limit (30km/h)        // 11	Right-of-way at the next intersection
-	2	Speed limit (50km/h)        // 12	Priority road
-	3	Speed limit (60km/h)        // 13	Yield
-	4	Speed limit (70km/h)        // 15	No vehicles
-	5	Speed limit (80km/h)        // 16	Vehicles over 3.5 metric tons prohibited
-	6	End of speed limit (80km/h) // 17	No entry
-	7	Speed limit (100km/h)       // 18	General caution
- 	8	Speed limit (120km/h)       // 19	Dangerous curve to the left
-	9	No passing                  // 20	Dangerous curve to the right
+![mod](img/bigstoppre.png)
+
+now we will see if it worked :D 
+here the class id with his respective SignName 
+```
+	0	Speed limit (20km/h)        // 10    No passing for vehicles over 3.5 metric tons
+	1	Speed limit (30km/h)        // 11    Right-of-way at the next intersection
+	2	Speed limit (50km/h)        // 12    Priority road
+	3	Speed limit (60km/h)        // 13    Yield
+	4	Speed limit (70km/h)        // 14    Stop
+	5	Speed limit (80km/h)        // 15    No vehicles
+	6	End of speed limit (80km/h) // 16    Vehicles over 3.5 metric tons prohibited
+	7	Speed limit (100km/h)       // 17    No entry
+ 	8	Speed limit (120km/h)       // 18    General caution
+	9	No passing                  // 19    Dangerous curve to the left
+                                            // 20    Dangerous curve to the right
 
 	21	Double curve              // 31 Wild animals crossing
 	22	Bumpy road                // 32	End of all speed and passing limits
@@ -123,12 +160,29 @@ here the class id with his respective SignName
                                           // 42	End of no passing by vehicles over 3.5 metric
                                 
 ```
+The correct is 14 ---> Stop but
+unfortunately and predictably the model could not correctly predict the traffic sign (37) ---> Go straight or left
+I suppose this is due to the fact that the training was carried out with images where what you want to predict occupies the entire image, and when we pass a new image that does not meet that requirement, the model will end up predicting poorly.
+
  ## now the moment of truth, model predictions
 
-![model pred](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/predict.png)
+![model pred](img/predict.png)
 
 we could say that the precision is 87.5% in the test images from the web very good :D 
-from eight images only one It was poorly predicted
+from eight images only one It was poorly predicted, now we are going to evaluate the model with code
+
+```python
+    loss, acc = new_model.evaluate(X_predict_pre, lab)
+    print('\nTest accuracy:', acc)
+    
+>>> 8/8 [==============================] - 0s 2ms/sample - loss: 5.2750 - accuracy: 0.8750
+
+    Test accuracy: 0.875
+```
+
+effectively gives us 87.5%
+
+
 
 # 4. Analyze the softmax probabilities of the new images
 
@@ -150,7 +204,7 @@ def top_k(img,k):
 ### the first image 
 the first image is ``` Right-of-way at the next intersection sign ``` 
 
-![predict proba](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/predict%20proba.png)
+![predict proba](img/predictproba.png)
 
 and the ouput is :
 ```
@@ -166,7 +220,7 @@ so the label is [11] if we look in the table we can see that id (11) corresponds
 ### the second image 
 the second image to analize is  ``` No entry ```
 
-![no entry](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/predict%20proba%2017.png)
+![no entry](img/predictproba17.png)
 
 and the ouput is :
 
@@ -181,7 +235,7 @@ As we can see the highest probability is given in [17], so if we search the tabl
 ### the third image
 the third image that we will analize is ``` Double curve ```
 
-![double](https://github.com/DavidSilveraGabriel/Self_driving_car_UdacityND/blob/master/P3-master/CarND-Traffic-Sign-Classifier-Project-master/img/erro.png) 
+![double](img/erro.png) 
 
 and the ouput is : 
 

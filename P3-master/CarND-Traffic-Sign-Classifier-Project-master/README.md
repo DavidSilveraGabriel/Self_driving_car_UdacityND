@@ -118,6 +118,7 @@ the first prediction it will be one where the traffic poster does not occupy the
 preprocess : applying the same thing that applies to the images of training, test and validation
 
 ```python
+
     img = mpimg.imread('./img/bigstop.jpg')
     img = np.array(img)
     img = cv2.resize(img,(32,32))
